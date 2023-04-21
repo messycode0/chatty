@@ -10,10 +10,13 @@ client_socket.connect((HOST, PORT))
 # message = 'Hello, server!'
 # client_socket.sendall(message.encode('utf-8'))
 
-while True:
+client_socket.sendall("connection132".encode('utf-8'))
+
+while True:  
+
     message = input('Enter a message: ')
     client_socket.sendall(message.encode('utf-8'))
-    if message == 'exit':
+    if message == 'exit' or message == 'e':
         break
 
 # Receive a response from the server

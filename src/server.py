@@ -24,10 +24,25 @@ while True:
             # The client has disconnected
             break
         
-        print(f'Received message [{client_address[0]}:{client_address[1]}]: {message}')
+        if message == 'connection132':
+            print(f'New connection from {client_address[0]}:{client_address[1]}')
+        elif message == 'exit':
+            print(f'Client [{client_address[0]}:{client_address[1]}] has disconnected')
+        elif message == 'e':
+            print(f'Client [{client_address[0]}:{client_address[1]}] has disconnected and told the server to shutdown... bye')
+            # tell all clients to disconnect
+            client_socket.sendall("disconnect".encode('utf-8'))
+
+
+            server_socket.close()
+
+            exit(0)
+        else:
+            print(f'Received message [{client_address[0]}:{client_address[1]}]: {message}')
+        
 
         # Echo the message back to the client
-        client_socket.sendall("Hello, client!".encode('utf-8'))
+        client_socket.sendall(message.encode('utf-8'))
 
     # Close the client socket
     client_socket.close()
